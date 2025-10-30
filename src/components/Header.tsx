@@ -63,7 +63,7 @@ export default function Header() {
               src="/images/Keenray.jpeg"
               alt="Keenray Logo"
               sx={{
-                height: 36,
+                height: { xs: 42, sm: 50, md: 55 },
                 width: "auto",
                 objectFit: "contain",
                 cursor: "pointer",
@@ -72,8 +72,11 @@ export default function Header() {
             />
           </Box>
 
-          {/* Desktop Menu */}
-          <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 0.5 }}>
+          {/* Desktop Bar: logo + 6 pages + CTA evenly spaced */}
+          <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", width: "100%", justifyContent: "space-evenly" }}>
+            {/* Spacer to balance spacing visually with left logo */}
+            <Box sx={{ width: 36 }} />
+
             {pages.map((page) => (
               <Button
                 key={page.name}
@@ -81,11 +84,11 @@ export default function Header() {
                 to={page.path}
                 sx={{
                   textTransform: "none",
-                  fontSize: "14px",
-                  fontWeight: 700,
+                  fontSize: "15px",
+                  fontWeight: 800,
                   position: "relative",
-                  px: 1,
-                  py: 0.5,
+                  px: 1.2,
+                  py: 0.6,
                   borderRadius: "8px",
                   background: "linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 50%, #2c2c2c 100%)",
                   backgroundClip: "text",
@@ -114,35 +117,52 @@ export default function Header() {
                     transition: "all 0.3s ease",
                     transform: "translateX(-50%)"
                   },
-                  "&:hover::after": {
-                    width: "70%"
-                  }
+                  "&:hover::after": { width: "70%" }
                 }}
               >
                 {page.name}
               </Button>
             ))}
-            
-            {/* Get Started Button */}
+
+            {/* CTA */}
             <Button
               variant="contained"
               endIcon={<ArrowForwardIcon sx={{ fontSize: 18 }} />}
               sx={{
-                backgroundColor: "#7bda57",
+                position: "relative",
+                overflow: "hidden",
+                background: "linear-gradient(135deg, #1d1d1f 0%, #2c2c2c 30%, #7bda57 70%, #6bc84a 85%, #5ab83a 100%)",
+                backgroundSize: "200% 200%",
+                animation: "gradientShift 6s ease infinite",
                 color: "#ffffff",
                 textTransform: "none",
-                fontSize: "14px",
-                fontWeight: 600,
-                px: 2.5,
-                py: 0.9,
-                borderRadius: "10px",
-                boxShadow: "0 3px 16px rgba(123, 218, 87, 0.28)",
-                transition: "all 0.3s ease-in-out",
-                ml: 1.5,
+                fontSize: "15px",
+                fontWeight: 800,
+                px: 2.8,
+                py: 1,
+                borderRadius: "12px",
+                boxShadow: "0 8px 26px rgba(123, 218, 87, 0.35)",
+                transition: "all 0.3s ease",
+                "&::before": {
+                  content: '""',
+                  position: "absolute",
+                  top: 0,
+                  left: -140,
+                  width: 110,
+                  height: "100%",
+                  background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent)",
+                  transform: "skewX(-20deg)",
+                  transition: "left 0.6s ease",
+                },
+                "&:hover::before": { left: 220 },
                 "&:hover": {
-                  backgroundColor: "#6bc84a",
                   transform: "translateY(-2px)",
-                  boxShadow: "0 6px 22px rgba(123, 218, 87, 0.35)"
+                  boxShadow: "0 14px 34px rgba(123, 218, 87, 0.45)"
+                },
+                "@keyframes gradientShift": {
+                  "0%": { backgroundPosition: "0% 50%" },
+                  "50%": { backgroundPosition: "100% 50%" },
+                  "100%": { backgroundPosition: "0% 50%" }
                 }
               }}
             >
@@ -158,7 +178,7 @@ export default function Header() {
               color: "#1d1d1f",
               backgroundColor: "rgba(0, 0, 0, 0.04)",
               borderRadius: "10px",
-              p: 0.5,
+              p: 1,
               transition: "all 0.3s ease-in-out",
               "&:hover": {
                 backgroundColor: "rgba(123, 218, 87, 0.08)",
@@ -179,11 +199,13 @@ export default function Header() {
         onClose={() => setOpen(false)}
         PaperProps={{
           sx: {
+            border:"1 px solid red",
             width: { xs: "75%", sm: "45%" },
             backgroundColor: "rgba(255, 255, 255, 0.98)",
             backdropFilter: "blur(20px)",
             borderLeft: "1px solid rgba(0, 0, 0, 0.08)",
-            p: 3
+            p: 3,
+            
           }
         }}
       >
@@ -259,7 +281,11 @@ export default function Header() {
             variant="contained"
             endIcon={<ArrowForwardIcon sx={{ fontSize: 18 }} />}
             sx={{
-              backgroundColor: "#7bda57",
+              position: "relative",
+              overflow: "hidden",
+              background: "linear-gradient(135deg, #1d1d1f 0%, #2c2c2c 30%, #7bda57 70%, #6bc84a 85%, #5ab83a 100%)",
+              backgroundSize: "200% 200%",
+              animation: "gradientShift 6s ease infinite",
               color: "#ffffff",
               textTransform: "none",
               fontSize: "16px",
@@ -267,14 +293,30 @@ export default function Header() {
               px: 3,
               py: 1.5,
               borderRadius: "12px",
-              boxShadow: "0 4px 20px rgba(123, 218, 87, 0.3)",
-              transition: "all 0.3s ease-in-out",
+              boxShadow: "0 12px 30px rgba(123, 218, 87, 0.45)",
+              transition: "all 0.3s ease",
               mt: 2,
               width: "100%",
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: -160,
+                width: 120,
+                height: "100%",
+                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent)",
+                transform: "skewX(-20deg)",
+                transition: "left 0.6s ease",
+              },
+              "&:hover::before": { left: 320 },
               "&:hover": {
-                backgroundColor: "#6bc84a",
                 transform: "translateY(-2px)",
-                boxShadow: "0 8px 30px rgba(123, 218, 87, 0.4)"
+                boxShadow: "0 16px 38px rgba(123, 218, 87, 0.5)"
+              },
+              "@keyframes gradientShift": {
+                "0%": { backgroundPosition: "0% 50%" },
+                "50%": { backgroundPosition: "100% 50%" },
+                "100%": { backgroundPosition: "0% 50%" }
               }
             }}
           >
