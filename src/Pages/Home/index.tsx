@@ -11,7 +11,7 @@ import ContactSidebar from "../../components/ContactSidebar.tsx";
 
 export default function Home() {
   return (
-    <><Box sx={{ overflowX: "hidden" }}>
+    <><Box sx={{ overflowX: "visible" }}>
       <Header />
       <ContactSidebar />
       <div style={{ paddingTop: "70px" }}>  

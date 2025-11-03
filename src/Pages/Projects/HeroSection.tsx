@@ -33,9 +33,10 @@ export default function ProjectsHeroSection() {
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
         <Box sx={{ textAlign: "center", color: "#ffffff" }}>
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <Typography
               variant="h1"
@@ -76,9 +77,10 @@ export default function ProjectsHeroSection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
           >
             <Typography sx={{ 
               fontSize: { xs: "15px", sm: "17px" }, 

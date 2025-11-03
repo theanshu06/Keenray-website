@@ -88,10 +88,10 @@ export default function ProjectsStatsSection() {
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1], delay: (index % 3) * 0.15 }}
             >
               <Paper
                 elevation={0}

@@ -42,7 +42,12 @@ export default function Header() {
           transition: "all 0.3s ease-in-out"
         }}
       >
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between", py: 0.5, px: 0 }}>
+        <Toolbar sx={{
+    display: "flex",
+    justifyContent: "space-between",
+    py: 0.5,
+    px: { xs: 2, sm: 3, md: 0 }, // 👈 add padding on small devices
+  }}>
 
           {/* Logo */}
           <Box

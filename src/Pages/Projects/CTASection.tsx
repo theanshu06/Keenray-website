@@ -18,10 +18,10 @@ export default function ProjectsCTASection() {
     >
       <Container maxWidth="lg">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <Paper
             elevation={0}
