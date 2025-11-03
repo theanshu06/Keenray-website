@@ -17,11 +17,11 @@ import { Link as RouterLink } from "react-router-dom";
 
 const pages = [
   { name: "Home", path: "/" },
-  { name: "About", path: "/" },
-  { name: "Services", path: "/" },
-  { name: "Projects", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Services", path: "/services" },
+  { name: "Projects", path: "/projects" },
   { name: "Insights", path: "/" },
-  { name: "Contact", path: "/" }
+  { name: "Contact", path: "/contact" }
 ];
 
 export default function Header() {
