@@ -15,9 +15,10 @@ export default function IntroCarouselSection() {
         <Typography
           variant="h4"
           sx={{
+            fontSize: { xs: "28px", sm: "36px", md: "48px", lg: "54px" },
             textAlign: "center",
             mb: { xs: 2, md: 3 },
-            fontWeight: 800,
+            fontWeight: 600,
             color: "#1d1d1f",
           }}
         >

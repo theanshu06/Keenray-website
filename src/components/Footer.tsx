@@ -1,4 +1,6 @@
-import { Box, Container, Grid, Typography, Link, IconButton, Divider } from "@mui/material";
+import { Box, Container, Typography, Link, IconButton, Divider } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import Grid from "@mui/material/Grid";
 import { motion } from "framer-motion";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -32,10 +34,10 @@ export default function Footer() {
         }}
       />
 
-      <Container maxWidth="lg" sx={{ pt: { xs: 4, md: 5 }, pb: { xs: 3, md: 4 }, position: "relative", zIndex: 1 }}>
+      <Container maxWidth="xl" sx={{ pt: { xs: 4, md: 5 }, pb: { xs: 3, md: 4 }, position: "relative", zIndex: 1 }}>
         <Grid container spacing={{ xs: 3, md: 4 }} alignItems="stretch">
           {/* Brand */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 {/* <Box
@@ -104,16 +106,24 @@ export default function Footer() {
           </Grid>
 
           {/* Quick Links */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.05 }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>
                 Quick Links
               </Typography>
               <Box sx={{ display: "grid", gap: 0.75 }}>
-                {[{ label: "Home", href: "#" }, { label: "About", href: "#" }, { label: "Services", href: "#" }, { label: "Projects", href: "#" }, { label: "Insights", href: "#" }, { label: "Contact", href: "#" }].map((link) => (
+                {[
+                  { label: "Home", to: "/" },
+                  { label: "About", to: "/about" },
+                  { label: "Services", to: "/services" },
+                  { label: "Projects", to: "/projects" },
+                  { label: "Our Team", to: "/team" },
+                  { label: "Contact", to: "/contact#contact-form" }
+                ].map((link) => (
                   <Link
                     key={link.label}
-                    href={link.href}
+                    component={RouterLink}
+                    to={link.to}
                     underline="none"
                     sx={{
                       color: "#e0e0e0",
@@ -143,15 +153,15 @@ export default function Footer() {
           </Grid>
 
           {/* Contact */}
-          <Grid item xs={12} sm={12} md={4}>
+          <Grid size={{ xs: 12, sm: 12, md: 4 }}>
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>
                 Contact
               </Typography>
               <Box sx={{ color: "#e0e0e0", display: "grid", gap: 0.5 }}>
-                <Typography sx={{ fontSize: { xs: 13, sm: 13.5 } }}>support@keenray.com</Typography>
-                <Typography sx={{ fontSize: { xs: 13, sm: 13.5 } }}>+1 (555) 123-4567</Typography>
-                <Typography sx={{ fontSize: { xs: 13, sm: 13.5 } }}>123 Solar Ave, Clean City, Earth</Typography>
+                <Typography sx={{ fontSize: { xs: 13, sm: 13.5 } }}>keenray.energies@gmail.com</Typography>
+                <Typography sx={{ fontSize: { xs: 13, sm: 13.5 } }}>+917020587907</Typography>
+                <Typography sx={{ fontSize: { xs: 13, sm: 13.5 } }}> 2nd Floor, Sable House, Rajendra Nagar, Near Sipna College Road, Gopal Nagar, Amravati 444607</Typography>
               </Box>
             </motion.div>
           </Grid>

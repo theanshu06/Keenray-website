@@ -1,5 +1,6 @@
 import { Box, Container, Typography, Paper } from "@mui/material";
 import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -26,6 +27,49 @@ const stats = [
 ];
 
 export default function ProjectsStatsSection() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollLeft = container.scrollLeft;
+          const cardWidth = 280 + 16; // card width + gap (280px card + 16px gap)
+          
+          // Calculate which card is currently most visible
+          const centerPoint = scrollLeft + container.clientWidth / 2;
+          let index = Math.round(centerPoint / cardWidth);
+          
+          // Ensure index stays within bounds
+          index = Math.max(0, Math.min(index, stats.length - 1));
+          
+          setActiveIndex(index);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // Initial check
+    handleScroll();
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToIndex = (index: number) => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const cardWidth = 280 + 16;
+    container.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+  };
+
   return (
     <Box
       sx={{
@@ -76,11 +120,178 @@ export default function ProjectsStatsSection() {
           }}
         />
 
+        {/* --- Mobile Horizontal Scrollable Slider --- */}
         <Box
           sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", sm: "repeat(3, 1fr)" },
-            gap: { xs: 2, sm: 3, md: 4 },
+            display: { xs: "block", sm: "none" },
+          }}
+        >
+          <Box
+            ref={scrollContainerRef}
+            sx={{
+              overflowX: "auto",
+              overflowY: "hidden",
+              scrollbarWidth: "thin",
+              scrollbarColor: "rgba(123,218,87,0.3) transparent",
+              "&::-webkit-scrollbar": {
+                height: "6px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "transparent",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                background: "rgba(123,218,87,0.3)",
+                borderRadius: "3px",
+              },
+              "&::-webkit-scrollbar-thumb:hover": {
+                background: "rgba(123,218,87,0.5)",
+              },
+              pb: 2,
+              mx: -2,
+              px: 2,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+                width: "max-content",
+                minWidth: "100%",
+              }}
+            >
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  style={{ minWidth: "280px", flexShrink: 0 }}
+                >
+                  <Paper
+                    elevation={0}
+                    sx={{
+                      p: 2.5,
+                      borderRadius: 3,
+                      backgroundColor: "#fff",
+                      border: "1.5px solid rgba(123,218,87,0.2)",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      textAlign: "center",
+                      height: "100%",
+                      transition: "all 0.3s ease",
+                      "&:active": {
+                        transform: "scale(0.98)",
+                      },
+                    }}
+                  >
+                    <motion.div
+                      animate={{
+                        rotate: [0, 5, -5, 0],
+                        scale: [1, 1.1, 1],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatDelay: 2,
+                        delay: index * 0.3,
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          mb: 1.5,
+                          p: 1.2,
+                          borderRadius: 2,
+                          backgroundColor: "rgba(123,218,87,0.1)",
+                          display: "inline-flex",
+                        }}
+                      >
+                        {stat.icon}
+                      </Box>
+                    </motion.div>
+
+                    <Typography
+                      sx={{
+                        fontWeight: 900,
+                        fontSize: "24px",
+                        mb: 0.5,
+                        background:
+                          "linear-gradient(135deg, #1d1d1f 0%, #4a4a4a 100%)",
+                        backgroundClip: "text",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }}
+                    >
+                      {stat.value}
+                    </Typography>
+
+                    <Typography
+                      sx={{
+                        fontWeight: 800,
+                        color: "#1d1d1f",
+                        mb: 0.5,
+                        fontSize: "14px",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {stat.label}
+                    </Typography>
+
+                    <Typography
+                      sx={{
+                        fontSize: "12px",
+                        color: "#6b6b6b",
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {stat.description}
+                    </Typography>
+                  </Paper>
+                </motion.div>
+              ))}
+            </Box>
+          </Box>
+          
+          {/* Circular Dots Indicator */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 1.5,
+              mt: 3,
+            }}
+          >
+            {stats.map((_, index) => (
+              <Box
+                key={index}
+                onClick={() => scrollToIndex(index)}
+                sx={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  backgroundColor: activeIndex === index ? "#7bda57" : "rgba(123,218,87,0.3)",
+                  cursor: "pointer",
+                  transition: "all 0.3s ease",
+                  transform: activeIndex === index ? "scale(1.2)" : "scale(1)",
+                  boxShadow: activeIndex === index ? "0 0 8px rgba(123,218,87,0.5)" : "none",
+                  "&:hover": {
+                    backgroundColor: activeIndex === index ? "#68c54b" : "rgba(123,218,87,0.5)",
+                    transform: "scale(1.3)",
+                  },
+                }}
+              />
+            ))}
+          </Box>
+        </Box>
+
+        {/* --- Desktop/Tablet Grid --- */}
+        <Box
+          sx={{
+            display: { xs: "none", sm: "grid" },
+            gridTemplateColumns: { sm: "repeat(3, 1fr)" },
+            gap: { sm: 3, md: 4 },
             maxWidth: 900,
             mx: "auto"
           }}

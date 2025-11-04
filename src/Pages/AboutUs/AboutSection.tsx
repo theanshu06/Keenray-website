@@ -1,4 +1,5 @@
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import { motion } from "framer-motion";
 
 export default function AboutSection() {
@@ -7,7 +8,7 @@ export default function AboutSection() {
       sx={{
         backgroundColor: "rgba(255, 255, 255, 0.95)",
         backdropFilter: "blur(20px)",
-        pt: { xs: 4, sm: 8, md: 10 },
+        pt: { xs: 3, sm: 8, md: 10 },
         pb: { xs: 10, sm: 12, md: 14 },
         px: { xs: 2, sm: 4, md: 8 },
         overflow: "hidden",
@@ -30,11 +31,9 @@ export default function AboutSection() {
 
         {/* LEFT : TEAM IMAGE (shows after text on phone) */}
         <Grid
-          item
-          xs={12}
-          sm={6}
-          order={{ xs: 2, sm: 1 }} // 👈 image second on mobile, first on larger screens
+          size={{ xs: 12, sm: 6 }}
           sx={{
+            order: { xs: 2, sm: 1 },
             textAlign: { xs: "center", sm: "left" },
             display: "flex",
             alignItems: "center",
@@ -73,11 +72,9 @@ export default function AboutSection() {
 
         {/* RIGHT : ABOUT CONTENT (shows first on phone) */}
         <Grid
-          item
-          xs={12}
-          sm={6}
-          order={{ xs: 1, sm: 2 }} // 👈 text first on mobile, second on larger screens
+          size={{ xs: 12, sm: 6 }}
           sx={{
+            order: { xs: 1, sm: 2 },
             display: "flex",
             alignItems: "center",
           }}
@@ -185,7 +182,7 @@ export default function AboutSection() {
               ))}
             </Box> */}
 
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 justifyContent: { xs: "center", sm: "flex-start" },
@@ -213,7 +210,7 @@ export default function AboutSection() {
               >
                 Learn More About Us
               </Button>
-            </Box>
+            </Box> */}
           </motion.div>
         </Grid>
 

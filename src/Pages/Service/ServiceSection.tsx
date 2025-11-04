@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography, Paper } from "@mui/material";
+import { Box, Container,  Typography, Paper } from "@mui/material";
 import SolarPowerIcon from "@mui/icons-material/SolarPower";
 import BusinessIcon from "@mui/icons-material/Business";
 import HomeIcon from "@mui/icons-material/Home";

@@ -1,27 +1,8 @@
-import { Box, Container, Typography, Stack, Chip } from "@mui/material";
+import { Box, Container, Typography, IconButton } from "@mui/material";
 import { motion } from "framer-motion";
-import SpeedIcon from "@mui/icons-material/Speed";
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import SupportAgentIcon from "@mui/icons-material/SupportAgent";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export default function ContactHeroSection() {
-  const features = [
-    { 
-      icon: <SpeedIcon sx={{ fontSize: 32 }} />, 
-      title: "24h Response", 
-      description: "Quick reply guarantee"
-    },
-    { 
-      icon: <VerifiedUserIcon sx={{ fontSize: 32 }} />, 
-      title: "Expert Team", 
-      description: "Certified professionals"
-    },
-    { 
-      icon: <SupportAgentIcon sx={{ fontSize: 32 }} />, 
-      title: "Free Consultation", 
-      description: "No obligation quotes"
-    },
-  ];
 
   return (
     <Box sx={{
@@ -31,8 +12,8 @@ export default function ContactHeroSection() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      minHeight: { xs: "40vh", md: "45vh" },
-      py: { xs: 6, md: 8 },
+      minHeight: { xs: "25vh",sm:"30vh", md: "30vh" },
+      py: { xs:1, md: 4 },
       '&::before': {
         content: '""',
         position: 'absolute',
@@ -92,14 +73,52 @@ export default function ContactHeroSection() {
                 color: "#6b6b6b", 
                 maxWidth: 700, 
                 mx: "auto",
-                mb: 4,
+                mb: 3,
                 lineHeight: 1.7
               }}>
                 Ready to go solar? Let's discuss your energy needs and create a customized solution for you.
               </Typography>
             </motion.div>
 
-            <Stack 
+            {/* Down Arrow */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ 
+                    duration: 1.5, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
+                >
+                  <IconButton
+                    onClick={() => {
+                      const formSection = document.getElementById('contact-form');
+                      if (formSection) {
+                        formSection.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                    sx={{
+                      color: "#7bda57",
+                      backgroundColor: "rgba(123,218,87,0.1)",
+                      "&:hover": {
+                        backgroundColor: "rgba(123,218,87,0.2)",
+                        transform: "scale(1.1)"
+                      },
+                      transition: "all 0.3s ease"
+                    }}
+                  >
+                    <KeyboardArrowDownIcon sx={{ fontSize: { xs: 32, sm: 40 } }} />
+                  </IconButton>
+                </motion.div>
+              </Box>
+            </motion.div>
+
+            {/* <Stack 
               direction={{ xs: "column", sm: "row" }} 
               spacing={2} 
               sx={{ 
@@ -142,89 +161,9 @@ export default function ContactHeroSection() {
                   px: 1
                 }} 
               />
-            </Stack>
+            </Stack> */}
           </Box>
         </motion.div>
-
-        <Stack 
-          direction={{ xs: "column", sm: "row" }} 
-          spacing={3}
-          sx={{ justifyContent: "center", alignItems: "stretch" }}
-        >
-          {features.map((feature, index) => (
-            <Box
-              key={index}
-              component={motion.div}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 + index * 0.15 }}
-              sx={{ flex: 1, maxWidth: { xs: "100%", sm: "300px" } }}
-            >
-              <Box
-                sx={{
-                  p: 4,
-                  textAlign: "center",
-                  borderRadius: 4,
-                  backgroundColor: "rgba(255,255,255,0.9)",
-                  border: "2px solid rgba(123,218,87,0.2)",
-                  backdropFilter: "blur(10px)",
-                  transition: "all 0.4s ease",
-                  cursor: "pointer",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  "&:hover": {
-                    transform: "translateY(-10px)",
-                    boxShadow: "0 20px 50px rgba(123,218,87,0.25)",
-                    borderColor: "#7bda57",
-                    backgroundColor: "rgba(123,218,87,0.05)",
-                    "& .feature-icon": {
-                      transform: "scale(1.2) rotate(10deg)",
-                      color: "#7bda57"
-                    }
-                  }
-                }}
-              >
-                <Box
-                  className="feature-icon"
-                  sx={{
-                    color: "#1d1d1f",
-                    mb: 2.5,
-                    transition: "all 0.4s ease",
-                    display: "flex",
-                    justifyContent: "center"
-                  }}
-                >
-                  {feature.icon}
-                </Box>
-                <Typography
-                  sx={{
-                    fontSize: "18px",
-                    fontWeight: 800,
-                    color: "#1d1d1f",
-                    mb: 1,
-                    textTransform: "uppercase",
-                    letterSpacing: "1px"
-                  }}
-                >
-                  {feature.title}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "14px",
-                    color: "#6b6b6b",
-                    fontWeight: 500,
-                    lineHeight: 1.6
-                  }}
-                >
-                  {feature.description}
-                </Typography>
-              </Box>
-            </Box>
-          ))}
-        </Stack>
       </Container>
     </Box>
   );

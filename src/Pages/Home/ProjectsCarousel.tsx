@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Box,
   Typography,
   Button,
   Card,
   IconButton,
-  useTheme,
 } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
@@ -99,7 +98,8 @@ export default function FeedbackCarousel() {
   const [openId, setOpenId] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [activeIdx, setActiveIdx] = useState(0);
-  const theme = useTheme();
+
+  
 
   // Detect active index while scrolling
   useEffect(() => {

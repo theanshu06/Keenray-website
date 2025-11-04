@@ -20,7 +20,7 @@ const pages = [
   { name: "About", path: "/about" },
   { name: "Services", path: "/services" },
   { name: "Projects", path: "/projects" },
-  { name: "Insights", path: "/" },
+  { name: "Our Team", path: "/team" },
   { name: "Contact", path: "/contact" }
 ];
 
@@ -46,7 +46,7 @@ export default function Header() {
     display: "flex",
     justifyContent: "space-between",
     py: 0.5,
-    px: { xs: 2, sm: 3, md: 0 }, // 👈 add padding on small devices
+    px: { xs: 2, sm: 3, md: 2 }, // 👈 add padding on small devices
   }}>
 
           {/* Logo */}
@@ -133,6 +133,8 @@ export default function Header() {
             <Button
               variant="contained"
               endIcon={<ArrowForwardIcon sx={{ fontSize: 18 }} />}
+              component={RouterLink}
+              to="/contact#contact-form"
               sx={{
                 position: "relative",
                 overflow: "hidden",
@@ -285,6 +287,9 @@ export default function Header() {
           <Button
             variant="contained"
             endIcon={<ArrowForwardIcon sx={{ fontSize: 18 }} />}
+            component={RouterLink}
+            to="/contact#contact-form"
+            onClick={() => setOpen(false)}
             sx={{
               position: "relative",
               overflow: "hidden",

@@ -10,14 +10,14 @@ export default function Contact() {
     <><Box sx={{ overflowX: "hidden" }}>
       <Header />
       <ContactSidebar />
-      <div style={{ paddingTop: "70px" }}>  
+      <Box sx={{ paddingTop: { xs: "65px", sm: "70px" } }}>
         <HeroSection />
         
         <ContactFormSection />
        
         <Footer />
         
-      </div>
+      </Box>
       </Box>
     </>
   );

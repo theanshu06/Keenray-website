@@ -1,4 +1,5 @@
-import { Box, Grid, Typography, Button, Stack, Paper } from "@mui/material";
+import { Box, Typography, Button, Stack, Paper } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import { motion } from "framer-motion";
 
 export default function AboutSection2() {
@@ -48,7 +49,7 @@ export default function AboutSection2() {
         sx={{ position: "relative", zIndex: 1 }}
       >
         {/* === LEFT SIDE - CONTENT === */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -163,7 +164,7 @@ export default function AboutSection2() {
         </Grid>
 
         {/* === RIGHT SIDE - IMAGE / VISUAL === */}
-        <Grid item xs={12} md={6} sx={{ textAlign: "center" }}>
+        <Grid size={{ xs: 12, md: 6 }} sx={{ textAlign: "center" }}>
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}

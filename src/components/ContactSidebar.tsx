@@ -11,21 +11,21 @@ export default function ContactSidebar() {
     {
       icon: <PhoneIcon sx={{ fontSize: 24, color: "#ffffff" }} />,
       label: "Phone",
-      value: "+91 98765 43210",
-      link: "tel:+919876543210",
+      value: "+91 7020587907",
+      link: "tel:+917020587907",
       color: "#7bda57",
     },
     {
       icon: <EmailIcon sx={{ fontSize: 24, color: "#ffffff" }} />,
       label: "Email",
-      value: "hello@keenray.com",
-      link: "mailto:hello@keenray.com",
+      value: "keenray.energies@gmail.com",
+      link: "mailto:keenray.energies@gmail.com",
       color: "#7bda57",
     },
     {
       icon: <LocationOnIcon sx={{ fontSize: 24, color: "#ffffff" }} />,
       label: "Location",
-      value: "Mumbai, India",
+      value: "Amravati, India",
       link: "#",
       color: "#7bda57",
     },
@@ -197,6 +197,8 @@ export default function ContactSidebar() {
                       color: "#1d1d1f",
                       lineHeight: 1.4,
                       wordBreak: "break-word",
+                      whiteSpace: "normal",     // 👈 allows wrapping
+    maxWidth: "100%", 
                     }}
                   >
                     {item.value}

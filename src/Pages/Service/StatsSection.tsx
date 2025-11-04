@@ -1,5 +1,7 @@
-import { Box, Container, Typography, Grid, Paper } from "@mui/material";
+import { Box, Container, Typography, Paper } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import SpeedIcon from "@mui/icons-material/Speed";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
@@ -9,7 +11,7 @@ const stats = [
   {
     icon: (
       <TrendingUpIcon
-        sx={{ fontSize: { xs: 36, sm: 42, md: 48 }, color: "#7bda57" }}
+        sx={{ fontSize: { xs: 28, sm: 42, md: 48 }, color: "#7bda57" }}
       />
     ),
     value: "500+",
@@ -19,7 +21,7 @@ const stats = [
   {
     icon: (
       <SpeedIcon
-        sx={{ fontSize: { xs: 36, sm: 42, md: 48 }, color: "#7bda57" }}
+        sx={{ fontSize: { xs: 28, sm: 42, md: 48 }, color: "#7bda57" }}
       />
     ),
     value: "98%",
@@ -29,7 +31,7 @@ const stats = [
   {
     icon: (
       <WorkspacePremiumIcon
-        sx={{ fontSize: { xs: 36, sm: 42, md: 48 }, color: "#7bda57" }}
+        sx={{ fontSize: { xs: 28, sm: 42, md: 48 }, color: "#7bda57" }}
       />
     ),
     value: "25+",
@@ -39,7 +41,7 @@ const stats = [
   {
     icon: (
       <SupportIcon
-        sx={{ fontSize: { xs: 36, sm: 42, md: 48 }, color: "#7bda57" }}
+        sx={{ fontSize: { xs: 28, sm: 42, md: 48 }, color: "#7bda57" }}
       />
     ),
     value: "24/7",
@@ -49,6 +51,49 @@ const stats = [
 ];
 
 export default function StatsSection() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollLeft = container.scrollLeft;
+          const cardWidth = 280 + 16; // card width + gap (280px card + 16px gap)
+          
+          // Calculate which card is currently most visible
+          const centerPoint = scrollLeft + container.clientWidth / 2;
+          let index = Math.round(centerPoint / cardWidth);
+          
+          // Ensure index stays within bounds
+          index = Math.max(0, Math.min(index, stats.length - 1));
+          
+          setActiveIndex(index);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // Initial check
+    handleScroll();
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToIndex = (index: number) => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const cardWidth = 280 + 16;
+    container.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+  };
+
   return (
     <Box
       sx={{
@@ -101,22 +146,182 @@ export default function StatsSection() {
           }}
         />
 
-        {/* --- Stats Grid --- */}
+        {/* --- Mobile Horizontal Scrollable Slider --- */}
+        <Box
+          sx={{
+            display: { xs: "block", sm: "none" },
+          }}
+        >
+          <Box
+            ref={scrollContainerRef}
+            sx={{
+              overflowX: "auto",
+              overflowY: "hidden",
+              scrollbarWidth: "thin",
+              scrollbarColor: "rgba(123,218,87,0.3) transparent",
+              "&::-webkit-scrollbar": {
+                height: "6px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "transparent",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                background: "rgba(123,218,87,0.3)",
+                borderRadius: "3px",
+              },
+              "&::-webkit-scrollbar-thumb:hover": {
+                background: "rgba(123,218,87,0.5)",
+              },
+              pb: 2,
+              mx: -2,
+              px: 2,
+            }}
+          >
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              width: "max-content",
+              minWidth: "100%",
+            }}
+          >
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                style={{ minWidth: "280px", flexShrink: 0 }}
+              >
+                <Paper
+                  elevation={0}
+                  sx={{
+                    p: 2.5,
+                    borderRadius: 3,
+                    backgroundColor: "#fff",
+                    border: "1.5px solid rgba(123,218,87,0.2)",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    textAlign: "center",
+                    height: "100%",
+                    transition: "all 0.3s ease",
+                    "&:active": {
+                      transform: "scale(0.98)",
+                    },
+                  }}
+                >
+                  <motion.div
+                    animate={{
+                      rotate: [0, 5, -5, 0],
+                      scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      repeatDelay: 2,
+                      delay: index * 0.3,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        mb: 1.5,
+                        p: 1.2,
+                        borderRadius: 2,
+                        backgroundColor: "rgba(123,218,87,0.1)",
+                        display: "inline-flex",
+                      }}
+                    >
+                      {stat.icon}
+                    </Box>
+                  </motion.div>
+
+                  <Typography
+                    sx={{
+                      fontWeight: 900,
+                      fontSize: "24px",
+                      mb: 0.5,
+                      background:
+                        "linear-gradient(135deg, #1d1d1f 0%, #4a4a4a 100%)",
+                      backgroundClip: "text",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    {stat.value}
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      fontWeight: 800,
+                      color: "#1d1d1f",
+                      mb: 0.5,
+                      fontSize: "14px",
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {stat.label}
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      color: "#6b6b6b",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {stat.description}
+                  </Typography>
+                </Paper>
+              </motion.div>
+            ))}
+          </Box>
+          </Box>
+          
+          {/* Circular Dots Indicator */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 1.5,
+              mt: 3,
+            }}
+          >
+            {stats.map((_, index) => (
+              <Box
+                key={index}
+                onClick={() => scrollToIndex(index)}
+                sx={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  backgroundColor: activeIndex === index ? "#7bda57" : "rgba(123,218,87,0.3)",
+                  cursor: "pointer",
+                  transition: "all 0.3s ease",
+                  transform: activeIndex === index ? "scale(1.2)" : "scale(1)",
+                  boxShadow: activeIndex === index ? "0 0 8px rgba(123,218,87,0.5)" : "none",
+                  "&:hover": {
+                    backgroundColor: activeIndex === index ? "#68c54b" : "rgba(123,218,87,0.5)",
+                    transform: "scale(1.3)",
+                  },
+                }}
+              />
+            ))}
+          </Box>
+        </Box>
+
+        {/* --- Desktop/Tablet Grid --- */}
         <Grid
           container
           spacing={{ xs: 2, sm: 3, md: 4 }}
           justifyContent="center"
           alignItems="stretch"
+          sx={{ display: { xs: "none", sm: "flex" } }}
         >
           {stats.map((stat, index) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={3}
-              key={index}
-              sx={{ display: "flex" }}
-            >
+            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index} sx={{ display: "flex" }}>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -127,7 +332,7 @@ export default function StatsSection() {
                 <Paper
                   elevation={0}
                   sx={{
-                    p: { xs: 2.2, sm: 3, md: 3.5 },
+                    p: { xs: 1.8, sm: 3, md: 3.5 },
                     borderRadius: { xs: 3, sm: 3.5, md: 4 },
                     backgroundColor: "#fff",
                     border: "1.5px solid rgba(123,218,87,0.2)",
@@ -159,8 +364,8 @@ export default function StatsSection() {
                   >
                     <Box
                       sx={{
-                        mb: { xs: 1.5, sm: 2 },
-                        p: { xs: 1.3, sm: 1.8 },
+                        mb: { xs: 1, sm: 2 },
+                        p: { xs: 1, sm: 1.8 },
                         borderRadius: { xs: 2, sm: 3 },
                         backgroundColor: "rgba(123,218,87,0.1)",
                         display: "inline-flex",
@@ -173,14 +378,14 @@ export default function StatsSection() {
                   <Typography
                     className="stat-value"
                     sx={{
-                      fontWeight: 900,
+                      fontWeight: { xs: 800, sm: 900 },
                       fontSize: {
-                        xs: "26px",
+                        xs: "20px",
                         sm: "30px",
                         md: "36px",
                         lg: "40px",
                       },
-                      mb: { xs: 0.5, sm: 0.8 },
+                      mb: { xs: 0.3, sm: 0.8 },
                       background:
                         "linear-gradient(135deg, #1d1d1f 0%, #4a4a4a 100%)",
                       backgroundClip: "text",
@@ -194,11 +399,11 @@ export default function StatsSection() {
 
                   <Typography
                     sx={{
-                      fontWeight: 800,
+                      fontWeight: { xs: 700, sm: 800 },
                       color: "#1d1d1f",
-                      mb: { xs: 0.5, sm: 0.8 },
-                      fontSize: { xs: "15px", sm: "16px", md: "18px" },
-                      lineHeight: 1.3,
+                      mb: { xs: 0.3, sm: 0.8 },
+                      fontSize: { xs: "13px", sm: "16px", md: "18px" },
+                      lineHeight: { xs: 1.2, sm: 1.3 },
                     }}
                   >
                     {stat.label}
@@ -206,9 +411,9 @@ export default function StatsSection() {
 
                   <Typography
                     sx={{
-                      fontSize: { xs: "12px", sm: "13px", md: "14px" },
+                      fontSize: { xs: "11px", sm: "13px", md: "14px" },
                       color: "#6b6b6b",
-                      lineHeight: { xs: 1.4, sm: 1.5 },
+                      lineHeight: { xs: 1.3, sm: 1.5 },
                       maxWidth: { xs: "95%", sm: "90%" },
                     }}
                   >

@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
@@ -18,7 +17,7 @@ export default function KPISection() {
         position: "relative",
         width: "100%",
         overflow: "hidden",
-        py: { xs: 3, sm: 4 },
+        py: { xs: 4, sm: 4 },
         backgroundColor: "#ffffff",
         borderTop: "1px solid rgba(86,185,71,0.15)",
         borderBottom: "1px solid rgba(86,185,71,0.15)",
@@ -41,13 +40,14 @@ export default function KPISection() {
       />
 
       {/* Scrolling KPI Strip */}
-      <motion.div
+      <Box
+        component={motion.div}
         animate={{ x: ["0%", "-50%"] }}
         transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-        style={{
+        sx={{
           display: "flex",
           alignItems: "center",
-          gap: "40px",
+          gap: { xs: "24px", sm: "40px" },
           width: "200%",
           position: "relative",
           zIndex: 2,
@@ -60,11 +60,11 @@ export default function KPISection() {
               flexShrink: 0,
               background: "rgba(255,255,255,0.9)",
               border: "1px solid rgba(86,185,71,0.25)",
-              borderRadius: "14px",
-              boxShadow: "0 4px 10px rgba(123,218,87,0.08)",
-              px: { xs: 2, sm: 3 },
-              py: { xs: 1.5, sm: 2 },
-              minWidth: { xs: 160, sm: 200, md: 220 },
+              borderRadius: { xs: "12px", sm: "14px" },
+              boxShadow: { xs: "0 3px 8px rgba(123,218,87,0.08)", sm: "0 4px 10px rgba(123,218,87,0.08)" },
+              px: { xs: 2.5, sm: 3 },
+              py: { xs: 2, sm: 2 },
+              minWidth: { xs: 180, sm: 200, md: 220 },
               textAlign: "center",
               backdropFilter: "blur(4px)",
             }}
@@ -73,8 +73,9 @@ export default function KPISection() {
               sx={{
                 color: "#56B947",
                 fontWeight: 800,
-                fontSize: { xs: "22px", sm: "28px", md: "32px" },
-                lineHeight: 1.1,
+                fontSize: { xs: "24px", sm: "28px", md: "32px" },
+                lineHeight: { xs: 1.2, sm: 1.1 },
+                mb: { xs: 0.5, sm: 0 },
               }}
             >
               {item.number}
@@ -83,7 +84,8 @@ export default function KPISection() {
               sx={{
                 color: "#1d1d1f",
                 fontWeight: 600,
-                fontSize: { xs: "13px", sm: "15px", md: "16px" },
+                fontSize: { xs: "14px", sm: "15px", md: "16px" },
+                lineHeight: { xs: 1.3, sm: 1.4 },
               }}
             >
               {item.label}
@@ -91,15 +93,16 @@ export default function KPISection() {
             <Typography
               sx={{
                 color: "#555",
-                fontSize: { xs: "11px", sm: "13px" },
-                mt: 0.3,
+                fontSize: { xs: "11.5px", sm: "13px" },
+                mt: { xs: 0.5, sm: 0.3 },
+                lineHeight: 1.3,
               }}
             >
               {item.sub}
             </Typography>
           </Box>
         ))}
-      </motion.div>
+      </Box>
     </Box>
   );
 }

@@ -1,4 +1,5 @@
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import { motion } from "framer-motion";
 
 export default function AboutSection() {
@@ -28,11 +29,9 @@ export default function AboutSection() {
       >
         {/* RIGHT : ABOUT CONTENT (shows first on phone) */}
         <Grid
-          item
-          xs={12}
-          sm={6}
-          order={{ xs: 1, sm: 2 }} // 👈 text first on mobile, second on larger screens
+          size={{ xs: 12, sm: 6 }}
           sx={{
+            order: { xs: 1, sm: 2 },
             display: "flex",
             alignItems: "center",
           }}
@@ -174,11 +173,9 @@ export default function AboutSection() {
 
         {/* LEFT : TEAM IMAGE (shows after text on phone) */}
         <Grid
-          item
-          xs={12}
-          sm={6}
-          order={{ xs: 2, sm: 1 }} // 👈 image second on mobile, first on larger screens
+          size={{ xs: 12, sm: 6 }}
           sx={{
+            order: { xs: 2, sm: 1 },
             textAlign: { xs: "center", sm: "left" },
             display: "flex",
             alignItems: "center",

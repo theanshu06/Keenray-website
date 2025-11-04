@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Header from "../../components/Header.tsx";
 import Footer from "../../components/Footer.tsx";
 import ServiceHeroSection from "./HeroSection.tsx";
@@ -15,13 +15,16 @@ export default function Service() {
       <ScrollProgressBar />
       <Header />
       <ContactSidebar />
-      <div style={{ paddingTop: "70px" }}>  
+<Container maxWidth="lg">
+      <Box sx={{ paddingTop: { xs: "65px", sm: "70px" } }}>
         <ServiceHeroSection />
         <ServiceSection />
         <StatsSection />
         <CTASection />
+        </Box>
+        </Container>
         <Footer />
-      </div>
+     
     </Box>
     </>
   );

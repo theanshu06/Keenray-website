@@ -16,8 +16,8 @@ export default function ProjectsHeroSection() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      minHeight: { xs: "35vh", md: "40vh" },
-      py: { xs: 5, md: 7 },
+      minHeight: { xs: "25vh",sm:"30vh", md: "35vh" },
+      py: { xs:0,sm:2, md: 7 },
       '&::before': {
         content: '""',
         position: 'absolute',
@@ -41,11 +41,11 @@ export default function ProjectsHeroSection() {
             <Typography
               variant="h1"
               sx={{
-                fontSize: { xs: "36px", sm: "48px", md: "64px", lg: "72px" },
+                fontSize: { xs: "32px", sm: "48px", md: "64px", lg: "72px" },
                 fontWeight: 900,
                 color: "#ffffff",
                 lineHeight: 1.1,
-                mb: 2,
+                mb: { xs: 1.2, sm: 2 },
                 letterSpacing: "-2px",
                 textShadow: "0 4px 20px rgba(123,218,87,0.3)"
               }}
@@ -83,11 +83,11 @@ export default function ProjectsHeroSection() {
             transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
           >
             <Typography sx={{ 
-              fontSize: { xs: "15px", sm: "17px" }, 
+              fontSize: { xs: "14px", sm: "17px" }, 
               color: "rgba(255,255,255,0.8)", 
               maxWidth: 700, 
               mx: "auto", 
-              mb: 4,
+              mb: { xs: 2, sm: 4 },
               lineHeight: 1.6
             }}>
               Discover our successful solar installations transforming energy consumption across India.
