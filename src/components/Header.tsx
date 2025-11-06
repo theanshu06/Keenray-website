@@ -38,7 +38,7 @@ export default function Header() {
           backdropFilter: "blur(20px)",
           color: "#1d1d1f",
           borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
-          zIndex: 1200,
+          zIndex: 1400, // Higher than Dialog's default z-index (1300) to stay visible
           transition: "all 0.3s ease-in-out"
         }}
       >

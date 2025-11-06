@@ -1,6 +1,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { motion } from "framer-motion";
+import { Container } from "@mui/material";
 
 export default function AboutSection() {
   return (
@@ -9,11 +10,11 @@ export default function AboutSection() {
         backgroundColor: "rgba(255, 255, 255, 0.95)",
         backdropFilter: "blur(20px)",
         pt: { xs: 5, sm: 8, md: 10 },
-        pb: { xs:1, sm: 12, md: 14 },
-        px: { xs: 2.5, sm: 4, md: 8 },
+        pb: { xs: 2, sm: 3, md: 3},
         overflow: "hidden",
       }}
     >
+      <Container maxWidth="lg">
       <Grid
         container
         spacing={{ xs: 3, sm: 4, md: 6 }}
@@ -192,6 +193,7 @@ export default function AboutSection() {
           </Box>
         </Grid>
       </Grid>
+      </Container>
     </Box>
   );
 }

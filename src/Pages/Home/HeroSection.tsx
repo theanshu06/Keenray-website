@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { motion } from "framer-motion";
 
@@ -9,10 +9,10 @@ export default function HeroSection() {
         backgroundColor: "#F5F5F7",
         pt: { xs: 3, sm: 8, md: 10 },
         pb: { xs: 6, sm: 12, md: 14 },
-        px: { xs: 2.5, sm: 4, md: 8 },
         overflow: "hidden",
       }}
     >
+      <Container maxWidth="lg">
       <Grid
         container
         spacing={{ xs: 3, sm: 4, md: 6 }}
@@ -138,6 +138,7 @@ export default function HeroSection() {
           </Box>
         </Grid>
       </Grid>
+      </Container>
     </Box>
   );
 }

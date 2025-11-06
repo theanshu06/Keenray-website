@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { motion } from "framer-motion";
 
@@ -10,10 +10,10 @@ export default function AboutSection() {
         backdropFilter: "blur(20px)",
         pt: { xs: 3, sm: 8, md: 10 },
         pb: { xs: 10, sm: 12, md: 14 },
-        px: { xs: 2, sm: 4, md: 8 },
         overflow: "hidden",
       }}
     >
+      <Container maxWidth="lg">
       <Grid
         container
         spacing={{ xs: 4, md: 6 }}
@@ -216,6 +216,7 @@ export default function AboutSection() {
 
         
       </Grid>
+      </Container>
     </Box>
   );
 }

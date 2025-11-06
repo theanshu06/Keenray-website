@@ -1,15 +1,18 @@
 import  { useState } from "react";
 import { Box, Typography, useMediaQuery, useTheme, Container } from "@mui/material";
 import { motion } from "framer-motion";
+import LeadFormModal from "../../components/LeadFormModal.tsx";
 
 const SOLUTIONS = [
-  { title: "Homes", image: "/images/solar-house.jpeg" },
-  { title: "Commercial", image: "/images/solar-house.jpeg" },
-  { title: "Housing Societies", image: "/images/solar-house.jpeg" },
+  { title: "Homes", image: "/images/solar-house.jpeg", tab: "home" as const },
+  { title: "Commercial", image: "/images/solar-house.jpeg", tab: "commercial" as const },
+  { title: "Housing Societies", image: "/images/solar-house.jpeg", tab: "housing" as const },
 ];
 
 export default function SolarSolutionsSection() {
   const [activeIdx, setActiveIdx] = useState<number>(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedTab, setSelectedTab] = useState<"home" | "commercial" | "housing">("home");
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
@@ -35,7 +38,10 @@ export default function SolarSolutionsSection() {
     return "auto";
   };
 
-  const handleMobileClick = (idx: number) => {
+  const handleCardClick = (idx: number) => {
+    setSelectedTab(SOLUTIONS[idx].tab);
+    setModalOpen(true);
+    // On mobile, also toggle active state for visual feedback
     if (isMobile) {
       setActiveIdx(activeIdx === idx ? -1 : idx);
     }
@@ -46,7 +52,9 @@ export default function SolarSolutionsSection() {
       sx={{
         width: "100%",
         backgroundColor: "#ffffff",
-        py: { xs: 6, sm: 8 },
+      
+        pt: { xs: 2, sm: 6 },
+        pb: { xs: 6, sm: 8 },
       }}
     >
       <Container maxWidth="lg">
@@ -56,7 +64,7 @@ export default function SolarSolutionsSection() {
           sx={{
             fontSize: { xs: "32px", sm: "36px", md: "48px", lg: "54px" },
             textAlign: "center",
-            mb: { xs: 3, sm: 5 },
+            mb: { xs: 4, sm:8},
             fontWeight: 800,
             color: "#1d1d1f",
           }}
@@ -90,7 +98,6 @@ export default function SolarSolutionsSection() {
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 onMouseEnter={() => !isMobile && setActiveIdx(idx)}
                 onMouseLeave={() => !isMobile && setActiveIdx(0)}
-                onClick={() => handleMobileClick(idx)}
                 style={{
                   gridColumn: getGridColumn(idx),
                   display: "flex",
@@ -98,6 +105,7 @@ export default function SolarSolutionsSection() {
                 }}
               >
                 <Box
+                  onClick={() => handleCardClick(idx)}
                   sx={{
                     position: "relative",
                     borderRadius: { xs: "16px", sm: "20px" },
@@ -186,6 +194,11 @@ export default function SolarSolutionsSection() {
           })}
         </Box>
       </Container>
+      <LeadFormModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        initialTab={selectedTab}
+      />
     </Box>
   );
 }

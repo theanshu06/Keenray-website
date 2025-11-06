@@ -10,7 +10,7 @@ const ITEMS = [
 export default function IntroCarouselSection() {
   return (
     <Box sx={{ backgroundColor: "#F5F5F7", py: { xs: 5, md: 10 } }}>
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         {/* Heading */}
         <Typography
           variant="h4"

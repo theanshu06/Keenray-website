@@ -1,5 +1,5 @@
 import HeroSection from "./HeroSection.tsx";
-import { Box, Container } from "@mui/material";
+import { Box} from "@mui/material";
 import Header from "../../components/Header.tsx";
 import AboutSection from "./AboutSection.tsx";
 import Footer from "../../components/Footer.tsx";
@@ -16,16 +16,14 @@ export default function Home() {
       <ContactSidebar />
   
       {/* Main content area */}
-      <Container maxWidth="lg">
-        <Box sx={{ paddingTop: "70px" }}>
-          <HeroSection />
-          <KPISection />
-          <AboutSection />
-          <SolarSolutionsSection />
-          {/* <AboutSection2 /> */}
-          <ProjectsCarousel />
-        </Box>
-      </Container>
+      <Box sx={{ paddingTop: "70px" }}>
+        <HeroSection />
+        <KPISection />
+        <AboutSection />
+        <SolarSolutionsSection />
+        {/* <AboutSection2 /> */}
+        <ProjectsCarousel />
+      </Box>
   
       {/* Footer (outside container for full width look) */}
       <Footer />

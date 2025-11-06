@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import Header from "../../components/Header.tsx";
 import Footer from "../../components/Footer.tsx";
 import HeroSection from "./HeroSection.tsx";
@@ -10,13 +10,11 @@ export default function OurTeam() {
     <>
       <Box sx={{ overflowX: "hidden" }}>
         <Header />
-        <Container maxWidth="lg">
-          <ContactSidebar />
-          <Box sx={{ paddingTop: { xs: "65px", sm: "70px" } }}>
-            <HeroSection />
-            <TeamSection />
-          </Box>
-        </Container>
+        <ContactSidebar />
+        <Box sx={{ paddingTop: { xs: "65px", sm: "70px" } }}>
+          <HeroSection />
+          <TeamSection />
+        </Box>
         <Footer />
       </Box>
     </>

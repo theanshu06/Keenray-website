@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Box} from "@mui/material";
 import Header from "../../components/Header.tsx";
 import Footer from "../../components/Footer.tsx";
 import ChooseSection from "./ChooseSection.tsx";
@@ -10,7 +10,6 @@ export default function AboutUs() {
   return (
     <><Box sx={{ overflowX: "hidden" }}>
     <Header />
-    <Container maxWidth="lg">
     <ContactSidebar />
 
     {/* 👇 Use Box instead of div, and sx for responsive padding */}
@@ -20,7 +19,6 @@ export default function AboutUs() {
       <ChooseSection />
       <IntroCarouselSection />
       </Box>
-      </Container>
       <Footer />
     
   </Box>
